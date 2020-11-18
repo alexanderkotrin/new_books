@@ -1,0 +1,49 @@
+{% load cms %}
+
+{% for book in object_list %}
+<tr>
+    {% comment %} <td>{{ book.id }}</td> {% endcomment %}
+    <td>{{ forloop.counter }}</td>
+    <td>{{ book.isbn }}</td>
+    <td>{{ book.contributor }}</td>
+    <td>{{ book.email_contributor }}</td>
+    <td><a href="{% url 'books:leads-list' book.pk %}" title="Leads">{{ book.title }}</a></td>
+    <td>{{ book.pages }}</td>
+    <td>{{ book.price }}</td>
+    <td>{{ book.isbn_received }}</td>
+    <td>{{ book.publication_date }}</td>
+    <td>{{ book.isbn_due }}</td>
+    <td>{{ book.get_book_type_display }}</td>
+    <td>{{ book.get_print_partner_display }}</td>
+    <!-- <td>
+        <div class="form-group">
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>HARDCOVER</option>
+              <option>PAPERBACK</option>
+              <option>AMAZON</option>
+            </select>
+          </div>
+    </td>
+    <td >
+        <div class="form-group">
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>ITBROCKS</option>
+              <option>LULU</option>
+              <option>AMAZON</option>
+            </select>
+          </div>
+    </td> -->
+    <td class="crud-column">
+        <a href="{% url 'books:book-update' book.pk %}" 
+            class="btn btn-outline-warning btn-sm btn-circle btn-noborder js-load-form" title="Edit">
+            <i class="fa fa-edit"></i></a>
+        <a href="{% url 'books:book-delete' book.pk %}"
+            class="btn btn-outline-danger btn-sm btn-circle btn-noborder js-load-form" title="Delete">
+            <i class="fa fa-trash-alt"></i></a>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7" class="text-center bg-warning">No {{ book|object_verbose_name|lower }}</td>
+</tr>
+{% endfor %}
